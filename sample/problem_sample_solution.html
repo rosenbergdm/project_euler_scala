@@ -28,11 +28,6 @@ code.sourceCode span.er { color: red; font-weight: bold; }
 <h2 id="a-level-2-section-header">A level 2 section header</h2>
 <p>And then a paragraph with plain text, some of it may be <em>emphasized</em></p>
 <pre class="sourceCode"><code class="sourceCode Scala">    <span class="co">// here is a sample</span><br />    <span class="kw">object</span> Sample {<br />      <span class="kw">def</span> <span class="fu">main</span>(args:Array[String]) = {<br />        <span class="fu">println</span>(<span class="st">&quot;Hello World!&quot;</span>)<br />      }<br />    }</code></pre>
-<h2 id="result">Result</h2>
-<pre><code>&gt; scalac sample.md
-&gt; scala -cp . Sample -e &quot;Sample.main&quot;
-  Hello, world!
-</code></pre>
 <p>Then another paragraph where I make a smart comment citing embedded code: <code>println</code> is so useful!</p>
 <p>Then a list with smart points:</p>
 <ul>
@@ -44,6 +39,10 @@ code.sourceCode span.er { color: red; font-weight: bold; }
     
 And if necessary, verbatim HTML.
 </div>
-
+<h2 id="result">Result</h2>
+<pre><code>&gt; scalac problem_sample.scala
+&gt; scala -cp . Sample -e &quot;Sample.main(null)&quot;
+ Hello World!
+</code></pre>
 </body>
 </html>

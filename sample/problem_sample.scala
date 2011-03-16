@@ -4,5 +4,3 @@ object Sample {
     println("Hello World!")
   }
 }
-
-Sample.main(null)

@@ -13,13 +13,6 @@ of it may be *emphasized*
     }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-##Result 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> scalac sample.md
-> scala -cp . Sample -e "Sample.main"
-  Hello, world!
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
         
 Then another paragraph where I make a smart
 comment citing embedded code: `println` is so useful!
@@ -33,3 +26,11 @@ Then a list with smart points:
 <div class="foo">
     And if necessary, verbatim HTML.
 </div>
+##Result
+~~~~~~~~~~~~~~~~~~~~~
+> scalac problem_sample.scala
+> scala -cp . Sample -e "Sample.main(null)"
+ Hello World!
+~~~~~~~~~~~~~~~~~~~~~
+
+
