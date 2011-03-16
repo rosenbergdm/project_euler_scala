@@ -1,0 +1,122 @@
+%
+% Style file for Scalit-generated output
+%
+
+% This uses perltex
+\usepackage{perltex}
+
+%
+% To record what was defined, we keep a dictionary. For each class, we
+% record the class definition, which methods and values are referenced
+% etc.
+%
+\perlnewcommand{\addClassDefinition}[2]{
+  $classes{$_[0]}{'classdefinition'} = $_[1];
+  return " ";
+}
+% Objects are stored in the same way, just in another field
+\perlnewcommand{\addObjectDefinition}[2]{
+  $classes{$_[0]}{'odef'} = $_[1];
+  return " ";
+}
+% Methods are added to the class they belong to
+\perlnewcommand{\addMethodDefinition}[3]{
+  $methods{$_[0]}{$_[1]} = $_[2];
+  return " ";
+}
+% Same thing for values
+\perlnewcommand{\addValueDefinition}[3]{
+  $values{$_[0]}{$_[1]} = $_[2];
+  return " ";
+}
+
+% And the commands: To produce some output, we would write some text
+% additional to the \addClassDefinition. At the moment, just the index
+% is important.
+\newcommand{\classdefinition}[1]{
+\addClassDefinition{#1}{\thepage}
+}
+\newcommand{\objectdefinition}[1]{
+\addObjectDefinition{#1}{\thepage}
+}
+\newcommand{\methoddefinition}[2]{
+\addMethodDefinition{#1}{#2}{\thepage}
+}
+\newcommand{\valuedefinition}[2]{
+\addValueDefinition{#1}{#2}{\thepage}
+}
+
+% Finally, an index command: We iterate over all the defined classes.
+% Unfortunately, perl safe mode disallows sort because it is unsafe
+% (don't ask... http://archives.postgresql.org/pgsql-patches/2004-10/msg00226.php )
+% Well, at least a valid excuse to write a little quicksort.
+\perlnewcommand{\classindex}{
+sub sort_ascii {
+  my @keys = @_;
+  return qsort(@keys);
+}
+sub llt {
+  my $a = $_[0];
+  my $b = $_[1];
+  my $upto = length($a);
+  if( length($b) < $upto ) {
+    $upto = length($b);
+  }
+  for($i = 0; $i < $upto; $i++ ) {
+    my $x1 = substr($a,$i,1);
+    my $x2 = substr($b,$i,1);
+    if(uc($x1) lt uc($x2) ) {
+      return 1;
+    }
+    if (uc($x2) lt uc($x1)) {
+      return 0;
+    }
+  }
+  if( length($a) < length($b) ) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+sub qsort {
+  @_ or return ();
+  my $p = shift;
+  (qsort(grep llt($_,$p), @_), $p, qsort(grep !llt($_,$p), @_));
+}
+
+
+@keys_sorted = sort_ascii(keys %classes);
+
+
+# Now for the actual output:
+# We have the keys sorted by classes. For each class, we collected
+# the methods and values, so they shall be noted there, together with
+# a page number.
+$out = "\\section*{Definitions}";
+$out .= "\\begin{itemize}";
+foreach my $k (@keys_sorted) {
+  $out .= "\\item $k\n";
+  $out .= "\\begin{itemize}";
+  if( $classes{$k}{'classdefinition'} ) {
+    $out .= "\\item Class definition: " . $classes{$k}{'classdefinition'};
+  }
+  if( $classes{$k}{'odef'} ) {
+    $out .= "\\item Object definition: " . $classes{$k}{'odef'};
+  }
+  if( keys(%{$methods{$k}}) ) {
+    my @ms = sort_ascii(keys(%{$methods{$k}}));
+    foreach my $m (@ms) {
+      $out .= "\\item Method $m: " . $methods{$k}{$m} . "\n";
+    }
+  }
+  if( keys(%{$values{$k}}) ) {
+    my @ms = sort_ascii(keys(%{$values{$k}}));
+    foreach my $m (@ms) {
+      $out .= "\\item Value $m: " . $values{$k}{$m} . "\n";
+    }
+  }
+  $out .= "\\end{itemize}";
+}
+$out .= "\\end{itemize}";
+return $out;
+}

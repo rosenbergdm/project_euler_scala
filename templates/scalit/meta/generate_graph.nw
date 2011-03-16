@@ -1,0 +1,169 @@
+\section{Generating a graph from a given literate program}
+In the following document, I show how to generate a graph that
+shows which code chunks were referenced from which other chunks.
+The aim is to visualize the usual structure of a literate program.
+
+For example, this document has the following structure:
+
+\includegraphics[width=10cm]{examplegraph}
+
+\subsection{Overview}
+I will receive input in the block format as described in [[markup/blocks.nw]],
+which I will then convert into the [[dot]] format\footnote{See [[http://www.graphviz.org/doc/info/lang.html]]}. Also, some data types will be needed for the
+intermediary representation:
+
+<<*>>=
+package visualization
+
+<<Read the blocks>>
+
+<<Graph representation>>
+
+@ \subsection{Reading the blocks}
+The reading of the blocks will use the utility functions defined in
+[[util/commandline.nw]] for option parsing etc. This is pretty
+basic stuff:
+
+<<Read the blocks>>=
+object MakeGraph {
+  def main(args: Array[String]) = {
+    import util.LiterateSettings
+
+    val ls = new LiterateSettings(args)
+
+@ This defined a new literate setting class which takes
+automatically care of some basic parameters for literate
+program input. We will use two fields: chunkCollections
+and output
+
+<<Read the blocks>>=
+    val graph = new Graph(ls.chunkCollections)
+
+@ First, we generate a new graph class from the chunks that we
+read in, then we write it to the specified output:
+
+<<Read the blocks>>=
+    graph.write(ls.output)
+  }
+}
+
+@ \subsection{Graph representation}
+Our graph will basically be a tree (as no code chunk will be referenced
+twice). A nice implementation of this is using a set of direct descendants
+(also note that each chunk has only one parent):
+
+<<Graph types>>=
+  import scala.collection.mutable.HashMap
+  type Node = String
+  type Graph = HashMap[Node,List[Node]]
+
+@ With this information, we can define the main class. It contains a
+representation of the graph and a method to write this graph to a dot
+file (explained in the next section). Also, there is a method
+to generate the actual graph, which will be invoked in the body
+
+<<Graph representation>>=
+import tangle.ChunkCollection
+class Graph(chunks: List[ChunkCollection]) {
+  <<Graph types>>
+
+  val representation: Graph =
+    new HashMap[Node,List[Node]]()
+
+  <<Generate the graph>>
+
+  <<Write to graph>>
+}
+
+@ Now on how to generate the graph. For this, we will traverse the chunk
+collection, adding elements as we go along. Then, for each element, we add
+the links to its other blocks:
+
+<<Generate the graph>>=
+  generate()
+  def generate(): Unit = {
+    chunks foreach {
+      cc => cc.cm.keys foreach {
+	chunkName =>
+	  representation(chunkName) =
+	    getReferences(cc.cm(chunkName), cc.cm)
+      }
+    }
+  }
+
+  <<get references>>
+
+@ To get the references, we look at the code in string reference
+form, adding an edge for each block reference:
+
+<<get references>>=
+  import tangle.CodeChunk
+  import markup.CodeBlock
+  def getReferences(chunk: CodeChunk, cm: Map[String,CodeBlock]) = {
+    import markup.StringRefs._
+
+@ First, we filter out all the non-reference elements:
+
+<<get references>>=
+    (chunk.stringRefForm(cm) filter {
+      case BlockRef(_) => true
+      case _ => false
+
+@ Then we return the names of these blocks:
+
+<<get references>>=
+    } map {
+      case BlockRef(r) => r.blockname
+      case _ => error("This should not contain any other elements")
+    }).toList
+  }
+
+@ \subsection{Writing the graph}
+The dot format expects a listing of nodes and edges to build the
+graph. Because we will use the nodes quite a few times, we give
+them shorter names (i.e. numbers)
+
+<<Write to graph>>=
+   def write(out: java.io.PrintStream) = {
+     val namesToNumbers: Map[Node,Int] = Map() ++
+       (representation.keys.toList
+	  zip
+	List.range(1,representation.size + 1))
+
+@ With this in place, we are ready to print the header:
+<<Write to graph>>=
+     out.println("digraph {")
+
+@ Now, we print the list of nodes with their label:
+
+<<Write to graph>>=
+     namesToNumbers foreach {
+       case (name,number) =>
+	 out.println("n" + number + " [ label =\"" +
+		     name
+		     + "\"]")
+     }
+
+@ After that, we list all the edges:
+
+<<Write to graph>>=
+     namesToNumbers foreach {
+       case (name,number) =>
+	 representation(name) foreach {
+	   targetName =>
+	     val targetNumber =
+	       namesToNumbers(targetName)
+
+	   out.println("n" + number +
+		       " -> n" + targetNumber +
+		       ";")
+	 }
+     }
+
+@ Finally, we are finished with printing:
+
+<<Write to graph>>=
+     out.println("}")
+   }
+
+@ \classindex

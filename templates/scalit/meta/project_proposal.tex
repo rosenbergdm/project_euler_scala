@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[pdftex,bookmarks=true,bookmarksnumbered=false,
+bookmarksopen=false,colorlinks=true,linkcolor=black,anchorcolor=blue]{hyperref}
+\title{Literate programming tools for Scala: Project proposal and timeline}
+\author{Sebastian Gfeller}
+\begin{document}
+\maketitle
+\section{Introduction}
+Literate programming sees programs as a work of literature: Documentation and
+source code are closely interspersed, the parts of the source explained in
+an order that makes it easy for a human to understand: We want to write
+programs for humans to read primarily.
+
+Scala allows for very elegant and succinct programs, but these programs are
+still documented in a very traditional style. I think Scala would benefit
+from literate programming tools to motivate programmers to write beautiful
+code with an explanation in mind.
+
+\section{What I will do}
+To write literate programs, we need a way to indicate sections of documentation
+and sections of code as well as how to put the code together. I will adapt
+the same syntax as noweb because it seems more lightweight than the old
+Web syntax.
+
+Two tools are needed, Tangle, which extracts the compilable source from
+the literate program and Weave, which extracts the documentation. I will write
+these two tools in Scala to avoid too many dependencies. To serve as a first
+example, I will directly write it in literate style, first relying on
+noweb to extract source and documentation, and later on using the version
+that I have written.
+
+After having produced a reasonably stable version of the tools, I will
+focus on better integrating them with Scala: Detect where values, classes,
+traits and methods are defined and allowing for some pretty printing.
+
+\section{Related work}
+\begin{itemize}
+\item CWeb ( \href{http://sunburn.stanford.edu/~knuth/cweb.html}{http://sunburn.stanford.edu/~knuth/cweb.html} )
+
+A version of web for C,C++ and Java
+
+\item noweb ( \href{http://www.eecs.harvard.edu/nr/noweb/}{http://www.eecs.harvard.edu/nr/noweb/} )
+
+A language-independent literate programming tool suite. I will use the same
+syntax.
+
+\end{itemize}
+
+\section{Timeline}
+\begin{description}
+\item[2008-03-07] Finished a version of tangle that can extract itself without
+relying on noweb anymore.
+\item[2008-03-21] Finished a basic version of weave that produces valid
+LaTeX output
+\item[2008-03-28] Chunk references in documentation, identify class, trait and
+object definitions.
+\item[2008-04-11] Compiler support. Initial public release
+\item[2008-04-25] Refinements: Good Unicode support, pretty printing,
+reasonable presentation of class/method index
+\item[2008-05-09] Finish final report
+\item[2008-05-30] Hand in final report
+\end{description}
+
+\section{Deliverables}
+As final product, I will produce tangle and weave, ready for inclusion in the
+standard Scala distribution. The written part of this semester project will
+primarily be the literate version of these programs, accompanied by a
+critical evaluation of literate programming techniques in Scala, especially
+the applicability of Knuth's original ideas.
+\end{document}

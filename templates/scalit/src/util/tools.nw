@@ -1,0 +1,31 @@
+\section{Command-line tools}
+The literate programming tools can always be accessed by directly calling the
+corresponding main class, for example:
+
+\begin{verbatim}
+scala scalit.tangle.LitComp inputfile
+\end{verbatim}
+
+However, this is quite verbose on the long run. To facilitate, the shell scripts
+[[sweave]] and [[litcomp]] provide an easy command line access.
+
+\subsection{Wrapping the weave tool}
+To wrap the weave tool, we simply call scala with the corresponding class:
+
+<<sweave>>=
+#!/bin/sh
+#
+# Scalit - Call weave with the arguments
+#
+scala scalit.weave.Weave $@
+
+@ \subsection{Wrapping the Compiler utility}
+Also the compiler utility will be used a lot. It is wrapped in the same way
+that weave is.
+
+<<litcomp>>=
+#!/bin/sh
+#
+# Scalit - Call tangle with arguments
+#
+scala scalit.tangle.LitComp $@

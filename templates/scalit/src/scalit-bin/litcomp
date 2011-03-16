@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Scalit - Call tangle with arguments
+#
+scala scalit.tangle.LitComp $@
+
