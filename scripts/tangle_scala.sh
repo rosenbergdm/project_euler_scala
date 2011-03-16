@@ -41,7 +41,7 @@ _take_to_next_stop() {
   local extract_file="$2"
   local nlines=$(echo $itext | wc -l | awk '{print $1}')
   local start_at="$(echo $itext | grep -n '^~~~~*$' | head -n1 | awk -F ":" '{print $1}')"
-  echo $itext | head -n $start_at >> $extract_file
+  echo $itext | head -n $((start_at - 1)) >> $extract_file
   echo $itext | tail -n $((nlines - start_at))
 }
 
@@ -86,6 +86,7 @@ fi
 #######################  MAIN ##########################
 
 tmp=$(mktemp -t tangle_scalaXXXXX)
+trap "rm -Rf $tmp" 0
 IFS="" input_text="$(cat $INPUTFILE)"
 text=$input_text
 
@@ -100,12 +101,12 @@ _deindent_scala $tmp
 
 if [[ "$(echo "$@" | sed -e 's/ /\n/g' | egrep '^\-o')" ]]; then
   mv $tmp "$(echo "$@" |  perl -pi -e 's/.*-o ([^ ]+).*/$1/')"
-elif [["$(echo "$@" | sed -e 's/ /\n/g' | egrep '\-\-output=')" ]]; then
+elif [[ "$(echo "$@" | sed -e 's/ /\n/g' | egrep '\-\-output=')" ]]; then
   mv $tmp "$(echo "$@" |  perl -pi -e 's/.*--output=([^ ]+).*/$1/')"
 else
   IFS="" text=$(cat $tmp)
   rm $tmp
-  echo $tmp
+  echo $text
 fi
 
 
