@@ -75,10 +75,10 @@ complete -F _tangle_scala tangle_scala.sh
 
 if [[ -d "/etc/bash_completion.d" ]] && [[ ! -e "/etc/bash_completion.d/_tangle_scala.sh" ]]; then
   {
-    printf %q "#!/bin/bash\n\n"
+    printf '#!/bin/bash\n\n'
     typeset -f _tangle_scala
 
-    printf %q "complete -F _tangle_scala tangle_scala.sh\n"
+    printf 'complete -F _tangle_scala tangle_scala.sh\n'
   } > /etc/bash_completion.d/_tangle_scala
 fi
 

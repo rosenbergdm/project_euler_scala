@@ -1,0 +1,16 @@
+# Configuration makefile snippet
+
+
+PROBLEM_NO         = @PROBLEM_NO@
+
+SCALA_HOME         = @SCALA_HOME@
+PROJECT_EULER_HOME = @PROJECT_EULER_HOME@
+PANDOC_EXE         = @PANDOC_EXE@
+SCALA              = @SCALA@
+SCALAC             = @SCALAC@
+BROWSER            = @BROWSER@
+
+STANGLE            = $(PROJECT_EULER_HOME)/scripts/tangle_scala.sh
+
+
+
