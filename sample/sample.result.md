@@ -1,0 +1,35 @@
+##A level 2 section header##
+    
+And then a paragraph with plain text, some
+of it may be *emphasized*
+
+
+~~~~~~~~~~~~~~~~~~~~~{.Scala}
+    // here is a sample
+    object Sample {
+      def main(args:Array[String]) = {
+        println("Hello World!")
+      }
+    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##Result 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> scalac sample.md
+> scala -cp . Sample -e "Sample.main"
+  Hello, world!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        
+Then another paragraph where I make a smart
+comment citing embedded code: `println` is so useful!
+    
+Then a list with smart points:
+    
+* this 
+* is a
+* list
+    
+<div class="foo">
+    And if necessary, verbatim HTML.
+</div>

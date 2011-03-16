@@ -1,7 +1,6 @@
 # Configuration makefile snippet
 
 
-PROBLEM_NO         = @PROBLEM_NO@
 
 SCALA_HOME         = @SCALA_HOME@
 PROJECT_EULER_HOME = @PROJECT_EULER_HOME@
@@ -13,4 +12,4 @@ BROWSER            = @BROWSER@
 STANGLE            = $(PROJECT_EULER_HOME)/scripts/tangle_scala.sh
 
 
-
+# vim: ft=make

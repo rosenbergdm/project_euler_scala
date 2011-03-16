@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre 
+   { margin: 0; padding: 0; border: 0; vertical-align: baseline; border: none; }
+td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; }
+td.sourceCode { padding-left: 5px; }
+code.sourceCode span.kw { color: #007020; font-weight: bold; } 
+code.sourceCode span.dt { color: #902000; }
+code.sourceCode span.dv { color: #40a070; }
+code.sourceCode span.bn { color: #40a070; }
+code.sourceCode span.fl { color: #40a070; }
+code.sourceCode span.ch { color: #4070a0; }
+code.sourceCode span.st { color: #4070a0; }
+code.sourceCode span.co { color: #60a0b0; font-style: italic; }
+code.sourceCode span.ot { color: #007020; }
+code.sourceCode span.al { color: red; font-weight: bold; }
+code.sourceCode span.fu { color: #06287e; }
+code.sourceCode span.re { }
+code.sourceCode span.er { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h2 id="a-level-2-section-header">A level 2 section header</h2>
+<p>And then a paragraph with plain text, some of it may be <em>emphasized</em></p>
+<pre class="sourceCode"><code class="sourceCode Scala">    <span class="co">// here is a sample</span><br />    <span class="kw">object</span> Sample {<br />      <span class="kw">def</span> <span class="fu">main</span>(args:Array[String]) = {<br />        <span class="fu">println</span>(<span class="st">&quot;Hello World!&quot;</span>)<br />      }<br />    }</code></pre>
+<h2 id="result">Result</h2>
+<pre><code>&gt; scalac sample.md
+&gt; scala -cp . Sample -e &quot;Sample.main&quot;
+  Hello, world!
+</code></pre>
+<p>Then another paragraph where I make a smart comment citing embedded code: <code>println</code> is so useful!</p>
+<p>Then a list with smart points:</p>
+<ul>
+<li>this</li>
+<li>is a</li>
+<li>list</li>
+</ul>
+<div class="foo">
+    
+And if necessary, verbatim HTML.
+</div>
+
+</body>
+</html>
