@@ -16,4 +16,18 @@ substitue_char_entities() {
       -e "s/<img src='images\/symbol_times.gif' [^>]*>/ \&times; /g" 
 }
 
+fetch_links() {
+  text="$1"
+  links=( $( echo $1 | \
+    grep "project\/" | \
+      sed -e 's/ /\n/g' | \
+      grep 'project\/' | \
+      sed -e "s/'/\"/g" -e 's#^.*="\(.*\)".*$#\1#' \
+          ) )
+  for l in $links; do 
+    wget "http://projecteuler.net/${l}" -O $(basename $l)
+  done
+}
+
+
 

@@ -30,7 +30,7 @@ Then a list with smart points:
 ~~~~~~~~~~~~~~~~~~~~~
 > scalac problem_sample.scala
 > scala -cp . Sample -e "Sample.main(null)"
- Hello World!
+  Hello World!
 ~~~~~~~~~~~~~~~~~~~~~
 
 

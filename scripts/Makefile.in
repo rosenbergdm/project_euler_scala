@@ -16,10 +16,10 @@ OUTPUT_HTML        = problem_@PROBLEM_NO@_solution.html
 all:			$(OUTPUT_HTML)
 
 view:			$(OUTPUT_HTML)
-			$(BROWSER $<)
+			$(BROWSER) $< &
 
 clean: 
-	rm -Rf *.out *.scala *solution.md *solution.html
+	rm -Rf *.out *.scala *solution.lscala *solution.html
 
 compile:		$(OUTPUT_MKD)
 

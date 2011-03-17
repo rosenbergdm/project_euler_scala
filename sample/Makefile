@@ -20,7 +20,7 @@ all:			$(OUTPUT_HTML)
 compile:		$(OUTPUT_MKD)
 
 clean: 
-	rm -Rf *.out *.scala *solution.md *solution.html
+	rm -Rf *.out *.scala *solution.lscala *solution.html
 
 $(SCALA_SRC):		$(SRC)
 	$(STANGLE) $< --output=$@
