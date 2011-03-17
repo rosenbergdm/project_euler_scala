@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="author" content="Colin Hughes" />
+<meta name="description" content="A website dedicated to the fascinating world of mathematics and programming" />
+<meta name="keywords" content="programming,mathematics,problems,puzzles" />
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<title>Problem 84 - Project Euler</title>
+<link rel="stylesheet" type="text/css" href="style_main.css" />
+<link rel="shortcut icon" href="http://projecteuler.net/favicon.ico" />
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
+</head>
+
+<body>
+<div id="top" class="noprint">
+
+   <div class="rbroundbox1">
+   <div class="rbtop"><div></div></div>
+   <div class="rbcontent">
+
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+      <tr>
+         <td style="padding:10px;">
+            <img src="images/logo.jpg" alt="Project Euler" title="Project Euler" />
+         </td>
+      </tr>
+      </table>
+      <div id="menu_bar">
+         <ul>
+<li><img src="images/icon_about.png" style="border:none;vertical-align:middle;" alt="About" /> <a href="index.php?section=about" title="About" accesskey="h"><span>About</span></a></li>
+<li><img src="images/icon_register.png" style="border:none;vertical-align:middle;" alt="Register" /> <a href="index.php?section=register" title="Register" accesskey="1"><span>Register</span></a></li>
+<li id="current"><img src="images/icon_problems.png" style="border:none;vertical-align:middle;" alt="Problems" /> <a href="index.php?section=problems" title="Problems" accesskey="2"><span>Problems</span></a></li>
+<li><img src="images/icon_login.png" style="border:none;vertical-align:middle;" alt="Login" /> <a href="index.php?section=login" title="Login" accesskey="3"><span>Login</span></a></li>
+         </ul>
+      </div>
+
+   </div><!-- /rbcontent -->
+   <div class="rbbot"><div></div></div>
+   </div><!-- /rbroundbox -->
+
+</div>
+
+<div id="main_page">
+   <br />
+   <div class="rbroundbox2">
+   <div class="rbtop"><div></div></div>
+   <div class="rbcontent">
+<div style="text-align:center;" class="print"><img src="images/logo.jpg" width="203" height="71" alt="projecteuler.net logo" style="border:none;" /></div>
+<h2 style="cursor:help;" title="In the game, Monopoly, find the three most popular squares when using two 4-sided dice.">Problem 84</h2>
+<div style="color:#666;font-size:80%;">03 December 2004</div><br />
+<div class="problem_content">
+<p>In the game, <i>Monopoly</i>, the standard board is set up in the following way:</p>
+<div style='text-align:center;'>
+<table cellspacing='1' cellpadding='5' border='0' style='background-color:#333333;' align='center'>
+<tr>
+<td style='background-color:#ffffff;'>GO</td>
+<td style='background-color:#ffffff;'>A1</td>
+<td style='background-color:#ffffff;'>CC1</td>
+<td style='background-color:#ffffff;'>A2</td>
+<td style='background-color:#ffffff;'>T1</td>
+<td style='background-color:#ffffff;'>R1</td>
+<td style='background-color:#ffffff;'>B1</td>
+<td style='background-color:#ffffff;'>CH1</td>
+<td style='background-color:#ffffff;'>B2</td>
+<td style='background-color:#ffffff;'>B3</td>
+<td style='background-color:#ffffff;'>JAIL</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>H2</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>C1</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>T2</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>U1</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>H1</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>C2</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>CH3</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>C3</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>R4</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>R2</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>G3</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>D1</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>CC3</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>CC2</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>G2</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>D2</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>G1</td>
+<td colspan='9'>&nbsp;</td>
+<td style='background-color:#ffffff;'>D3</td>
+</tr>
+<tr>
+<td style='background-color:#ffffff;'>G2J</td>
+<td style='background-color:#ffffff;'>F3</td>
+<td style='background-color:#ffffff;'>U2</td>
+<td style='background-color:#ffffff;'>F2</td>
+<td style='background-color:#ffffff;'>F1</td>
+<td style='background-color:#ffffff;'>R3</td>
+<td style='background-color:#ffffff;'>E3</td>
+<td style='background-color:#ffffff;'>E2</td>
+<td style='background-color:#ffffff;'>CH2</td>
+<td style='background-color:#ffffff;'>E1</td>
+<td style='background-color:#ffffff;'>FP</td>
+</tr>
+</table>
+</div>
+<p>A player starts on the GO square and adds the scores on two 6-sided dice to determine the number of squares they advance in a clockwise direction. Without any further rules we would expect to visit each square with equal probability: 2.5%. However, landing on G2J (Go To Jail), CC (community chest), and CH (chance) changes this distribution.</p>
+<p>In addition to G2J, and one card from each of CC and CH, that orders the player to go directly to jail, if a player rolls three consecutive doubles, they do not advance the result of their 3rd roll. Instead they proceed directly to jail.</p>
+<p>At the beginning of the game, the CC and CH cards are shuffled. When a player lands on CC or CH they take a card from the top of the respective pile and, after following the instructions, it is returned to the bottom of the pile. There are sixteen cards in each pile, but for the purpose of this problem we are only concerned with cards that order a movement; any instruction not concerned with movement will be ignored and the player will remain on the CC/CH square.</p>
+<ul>
+<li>Community Chest (2/16 cards):
+<ol>
+<li>Advance to GO</li>
+<li>Go to JAIL</li>
+</ol>
+</li>
+<li>Chance (10/16 cards):
+<ol>
+<li>Advance to GO</li>
+<li>Go to JAIL</li>
+<li>Go to C1</li>
+<li>Go to E3</li>
+<li>Go to H2</li>
+<li>Go to R1</li>
+<li>Go to next R (railway company)</li>
+<li>Go to next R</li>
+<li>Go to next U (utility company)</li>
+<li>Go back 3 squares.</li>
+</ol>
+</li>
+</ul>
+<p>The heart of this problem concerns the likelihood of visiting a particular square. That is, the probability of finishing at that square after a roll. For this reason it should be clear that, with the exception of G2J for which the probability of finishing on it is zero, the CH squares will have the lowest probabilities, as 5/8 request a movement to another square, and it is the final square that the player finishes at on each roll that we are interested in. We shall make no distinction between &quot;Just Visiting&quot; and being sent to JAIL, and we shall also ignore the rule about requiring a double to &quot;get out of jail&quot;, assuming that they pay to get out on their next turn.</p>
+<p>By starting at GO and numbering the squares sequentially from 00 to 39 we can concatenate these two-digit numbers to produce strings that correspond with sets of squares.</p>
+<p>Statistically it can be shown that the three most popular squares, in order, are JAIL (6.24%) = Square 10, E3 (3.18%) = Square 24, and GO (3.09%) = Square 00. So these three most popular squares can be listed with the six-digit modal string: 102400.</p>
+<p>If, instead of using two 6-sided dice, two 4-sided dice are used, find the six-digit modal string.</p>
+
+</div><br />
+<br />   </div><!-- /rbcontent -->
+   <div class="rbbot"><div></div></div>
+   </div><!-- /rbroundbox -->
+</div>
+
+<div id="bottom" class="noprint">
+<a href="index.php?section=copyright">Project Euler Copyright Information</a>
+<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+   <Work rdf:about="">
+      <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/" />
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   </Work>
+   <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+</div>
+</body>
+</html>
