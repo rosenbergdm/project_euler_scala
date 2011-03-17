@@ -7,7 +7,7 @@ PROJECT_EULER_HOME = /opt/git/rosenbergdm/project_euler_scala/sample
 PANDOC_EXE         = /usr/local/bin/pandoc
 SCALA              = /usr/local/scala/bin/scala
 SCALAC             = /usr/local/scala/bin/scalac
-BROWSER            = chromium-browser
+BROWSER            = /usr/bin/chromium-browser
 
 STANGLE            = $(PROJECT_EULER_HOME)/scripts/tangle_scala.sh
 

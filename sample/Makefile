@@ -4,19 +4,18 @@ include config.mk
 
 DATAFILES          = 
 IMAGEFILES         = 
-SRC                = problem_sample.md
+SRC                = problem_sample.lscala
 SCALA_SRC          = problem_sample.scala
 SCALA_OUT          = problem_sample.out
-OUTPUT_MKD         = problem_sample_solution.md
+OUTPUT_MKD         = problem_sample_solution.lscala
 OUTPUT_HTML        = problem_sample_solution.html
 
 .PHONY: all compile view clean
 
 view:			$(OUTPUT_HTML)
-			$(BROWSER $<)
+			$(BROWSER) $< &
 
 all:			$(OUTPUT_HTML)
-			$(BROWSER $<)
 
 compile:		$(OUTPUT_MKD)
 
@@ -36,7 +35,7 @@ $(OUTPUT_MKD): 		$(SRC) $(SCALA_OUT)
 	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
 	  echo '> scalac $(SCALA_SRC)' && \
 	  echo "> scala -cp . $$(ls *.class | head -n1 | sed -e 's#.class##') -e \"$$(ls *.class | head -n1 | sed -e 's#.class##').main(null)\"" && \
-	  echo -n " " && cat $(SCALA_OUT) && \
+	  echo -n "  " && cat $(SCALA_OUT) && \
 	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
 	  echo && echo ) > $@
 

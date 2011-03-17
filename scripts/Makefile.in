@@ -5,10 +5,10 @@ include @CONFIG_MK@
 PROBLEM_NO         = @PROBLEM_NO@
 DATAFILES          = @DATA_FILES@
 IMAGEFILES         = @IMAGEFILES@
-SRC                = problem_@PROBLEM_NO@.md
+SRC                = problem_@PROBLEM_NO@.lscala
 SCALA_SRC          = problem_@PROBLEM_NO@.scala
 SCALA_OUT          = problem_@PROBLEM_NO@.out
-OUTPUT_MKD         = problem_@PROBLEM_NO@_solution.md
+OUTPUT_MKD         = problem_@PROBLEM_NO@_solution.lscala
 OUTPUT_HTML        = problem_@PROBLEM_NO@_solution.html
 
 .PHONY: all compile view clean
@@ -36,7 +36,7 @@ $(OUTPUT_MKD): 		$(SRC) $(SCALA_OUT)
 	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
 	  echo '> scalac $(SCALA_SRC)' && \
 	  echo "> scala -cp . $$(ls *.class | head -n1 | sed -e 's#.class##') -e \"$$(ls *.class | head -n1 | sed -e 's#.class##').main(null)\"" && \
-	  echo -n " " && cat $(SCALA_OUT) && \
+	  echo -n "  " && cat $(SCALA_OUT) && \
 	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
 	  echo && echo ) > $@
 
