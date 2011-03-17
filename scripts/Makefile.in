@@ -5,32 +5,40 @@ include @CONFIG_MK@
 PROBLEM_NO         = @PROBLEM_NO@
 DATAFILES          = @DATA_FILES@
 IMAGEFILES         = @IMAGEFILES@
-SRC                = problem_$(PROBLEM_NO).md
-SCALA_SRC          = problem_$(PROBLEM_NO).scala
-SCALA_OUT          = problem_$(PROBLEM_NO).out
-OUTPUT_MKD         = problem_$(PROBLEM_NO)_solution.md
-OUTPUT_HTML        = problem_$(PROBLEM_NO)_solution.html
+SRC                = problem_@PROBLEM_NO@.md
+SCALA_SRC          = problem_@PROBLEM_NO@.scala
+SCALA_OUT          = problem_@PROBLEM_NO@.out
+OUTPUT_MKD         = problem_@PROBLEM_NO@_solution.md
+OUTPUT_HTML        = problem_@PROBLEM_NO@_solution.html
 
-.PHONY: all compile view
+.PHONY: all compile view clean
+
+all:			$(OUTPUT_HTML)
 
 view:			$(OUTPUT_HTML)
 			$(BROWSER $<)
 
-all:			$(OUTPUT_HTML)
-			$(BROWSER $<)
+clean: 
+	rm -Rf *.out *.scala *solution.md *solution.html
 
 compile:		$(OUTPUT_MKD)
-
 
 $(SCALA_SRC):		$(SRC)
 	$(STANGLE) $< --output=$@
 
 $(SCALA_OUT): 		$(SCALA_SRC)
 	$(SCALAC) $< 
-	$(SCALA) -cp . -e "$(shell grep object $< | head -n1 | awk '{print $2}')" > $@
+	$(SCALA) -cp . -e "$$(grep object $< | head -n1 | awk '{print $$2}').main(null)" > $@
 
-$(OUTPUT_MKD): 		$(SCALA_OUT) $(SRC)
-	cat $^ > $@
+$(OUTPUT_MKD): 		$(SRC) $(SCALA_OUT) 
+	( cat $< && \
+	  echo '##Result' && \
+	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
+	  echo '> scalac $(SCALA_SRC)' && \
+	  echo "> scala -cp . $$(ls *.class | head -n1 | sed -e 's#.class##') -e \"$$(ls *.class | head -n1 | sed -e 's#.class##').main(null)\"" && \
+	  echo -n " " && cat $(SCALA_OUT) && \
+	  echo '~~~~~~~~~~~~~~~~~~~~~' && \
+	  echo && echo ) > $@
 
 $(OUTPUT_HTML): 	$(OUTPUT_MKD)
 	$(PANDOC_EXE) -s -S -t html $< > $@

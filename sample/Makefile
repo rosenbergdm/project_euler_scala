@@ -2,7 +2,6 @@
 
 include config.mk
 
-sample="sample" 
 DATAFILES          = 
 IMAGEFILES         = 
 SRC                = problem_sample.md

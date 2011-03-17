@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Scalit - Call weave with the arguments
-#
-scala scalit.weave.Weave $@
-
-
