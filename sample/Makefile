@@ -27,7 +27,7 @@ $(SCALA_SRC):		$(SRC)
 
 $(SCALA_OUT): 		$(SCALA_SRC)
 	$(SCALAC) $< 
-	$(SCALA) -cp . -e "$$(grep object $< | head -n1 | awk '{print $$2}').main(null)" > $@
+	$(SCALA) -cp . $$(ls *.class | head -n1 | sed -e 's#.class##') -e "$$(ls *.class | head -n1 | sed -e 's#.class##').main(null)" > $@
 
 $(OUTPUT_MKD): 		$(SRC) $(SCALA_OUT) 
 	( cat $< && \
